@@ -21,7 +21,7 @@ $ mazavatar --width 20 --height 20 usernam
 - [ ] Implement Growing Tree algorithm
 - [ ] Output image of maze
 - [ ] Move recursion to iteration
-- [ ] Support change hash algorithm
+- [x] Support change hash algorithm
 
 ## Contributing
 

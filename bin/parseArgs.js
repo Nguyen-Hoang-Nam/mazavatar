@@ -1,4 +1,5 @@
 import { isNumeric } from "./utils.js";
+import { algorithms } from "./global.js";
 
 const helpCommand = (alias, mean, pad = 24) => " " + alias.padEnd(pad) + mean;
 
@@ -11,6 +12,7 @@ const help = () => {
     output += "Options: \n";
     output += helpCommand("-h, --help", "Show help\n");
     output += helpCommand("-v, --version", "Show version\n");
+    output += helpCommand("-a, --algorithm", "Change hash algorithm\n");
     output += helpCommand(
         "-s, --style",
         "Change maze style (normal, heavy, arc)\n"
@@ -33,6 +35,7 @@ const parseArg = () => {
         height: 5,
         username: "mazavatar",
         style: "normal",
+        algorithm: "sha256",
     };
 
     for (let i = 0; i < argsLen; i++) {
@@ -65,6 +68,16 @@ const parseArg = () => {
                     parseArgs["style"] = args[i + 1];
                 } else {
                     console.log("Style not found");
+                    help();
+                    return {};
+                }
+
+                i++;
+            } else if (args[i] === "-a" || args[i] === "--algorithm") {
+                if (i < argsLen - 1 && algorithms.includes(args[i + 1])) {
+                    parseArgs["algorithm"] = args[i + 1];
+                } else {
+                    console.log("Algorithms not found");
                     help();
                     return {};
                 }

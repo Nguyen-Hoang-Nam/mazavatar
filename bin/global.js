@@ -1,0 +1,66 @@
+const algorithms = [
+    "sha1",
+    "sha224",
+    "sha256",
+    "sha384",
+    "sha512",
+    "md4",
+    "md5",
+    "whirlpool",
+    "shake128",
+    "shake256",
+    "sm3",
+    "ripemd160",
+];
+
+const boxDrawing = {
+    normal: {
+        horizontal: "─",
+        vertical: "│",
+        downRight: "┌",
+        downLeft: "┐",
+        upRight: "└",
+        upLeft: "┘",
+        verticalRight: "├",
+        verticalLeft: "┤",
+        horizontalDown: "┬",
+        horizontalUp: "┴",
+        verticalHorizontal: "┼",
+        up: "╵",
+        down: "╷",
+    },
+
+    heavy: {
+        horizontal: "━",
+        vertical: "┃",
+        downRight: "┏",
+        downLeft: "┓",
+        upRight: "┗",
+        upLeft: "┛",
+        verticalRight: "┣",
+        verticalLeft: "┫",
+        horizontalDown: "┳",
+        horizontalUp: "┻",
+        verticalHorizontal: "╋",
+        up: "╹",
+        down: "╻",
+    },
+
+    arc: {
+        horizontal: "─",
+        vertical: "│",
+        downRight: "╭",
+        downLeft: "╮",
+        upRight: "╰",
+        upLeft: "╯",
+        verticalRight: "├",
+        verticalLeft: "┤",
+        horizontalDown: "┬",
+        horizontalUp: "┴",
+        verticalHorizontal: "┼",
+        up: "╵",
+        down: "╷",
+    },
+};
+
+export { algorithms, boxDrawing };

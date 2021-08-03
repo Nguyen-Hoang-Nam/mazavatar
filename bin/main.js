@@ -3,66 +3,19 @@
 import crypto from "crypto";
 import args from "./parseArgs.js";
 import { isEmpty, getBit, between } from "./utils.js";
+import { boxDrawing } from "./global.js";
 
 if (!isEmpty(args)) {
-    const boxDrawing = {
-        normal: {
-            horizontal: "─",
-            vertical: "│",
-            downRight: "┌",
-            downLeft: "┐",
-            upRight: "└",
-            upLeft: "┘",
-            verticalRight: "├",
-            verticalLeft: "┤",
-            horizontalDown: "┬",
-            horizontalUp: "┴",
-            verticalHorizontal: "┼",
-            up: "╵",
-            down: "╷",
-        },
-
-        heavy: {
-            horizontal: "━",
-            vertical: "┃",
-            downRight: "┏",
-            downLeft: "┓",
-            upRight: "┗",
-            upLeft: "┛",
-            verticalRight: "┣",
-            verticalLeft: "┫",
-            horizontalDown: "┳",
-            horizontalUp: "┻",
-            verticalHorizontal: "╋",
-            up: "╹",
-            down: "╻",
-        },
-
-        arc: {
-            horizontal: "─",
-            vertical: "│",
-            downRight: "╭",
-            downLeft: "╮",
-            upRight: "╰",
-            upLeft: "╯",
-            verticalRight: "├",
-            verticalLeft: "┤",
-            horizontalDown: "┬",
-            horizontalUp: "┴",
-            verticalHorizontal: "┼",
-            up: "╵",
-            down: "╷",
-        },
-    };
-
     const width = args["width"];
     const height = args["height"];
     const username = args["username"];
     const style = args["style"];
+    const algorithm = args["algorithm"];
 
     // Hash username
-    const hash = crypto.createHash("sha256").update(username).digest("hex");
+    const hash = crypto.createHash(algorithm).update(username).digest("hex");
     const hashHexArr = hash.match(/.{1,2}/g);
+    const hashHexLen = hashHexArr.length;
 
     // Hash to int
     const hashArr = [];
@@ -140,7 +93,7 @@ if (!isEmpty(args)) {
     // Credit https://weblog.jamisbuck.org/2010/12/27/maze-generation-recursive-backtracking.html
     const mazeGeneration = (cx, cy, grid) => {
         const hashCurrent = hashArr[count++];
-        if (count > 31) {
+        if (count > hashHexLen - 1) {
             count = 0;
         }
 
