@@ -2,6 +2,8 @@
 
 Generate maze by username
 
+![Screenshot](https://raw.githubusercontent.com/Nguyen-Hoang-Nam/readme-image/main/mazavatar/screenshot.png)
+
 ## Installation
 
 ```bash

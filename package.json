@@ -1,6 +1,6 @@
 {
     "name": "mazavatar",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Generate maze by username",
     "main": "bin/main.js",
     "author": {
