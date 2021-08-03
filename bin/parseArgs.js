@@ -1,31 +1,5 @@
-import { isNumeric } from "./utils.js";
+import { isNumeric, help } from "./utils.js";
 import { algorithms } from "./global.js";
-
-const helpCommand = (alias, mean, pad = 24) => " " + alias.padEnd(pad) + mean;
-
-const help = () => {
-    let output = "";
-
-    output += "\n";
-    output += "Usage: mazavatar <Options> <Input>";
-    output += "\n";
-    output += "Options: \n";
-    output += helpCommand("-h, --help", "Show help\n");
-    output += helpCommand("-v, --version", "Show version\n");
-    output += helpCommand("-a, --algorithm", "Change hash algorithm\n");
-    output += helpCommand(
-        "-s, --style",
-        "Change maze style (normal, heavy, arc)\n"
-    );
-    output += helpCommand("-W, --width", "Set width of maze\n");
-    output += helpCommand("-H, --height", "Set height of maze\n");
-
-    output += "\n";
-    output += "Examples: \n";
-    output += "  $ mazavatar --width 20 --height 20 example";
-
-    console.log(output);
-};
 
 const parseArg = () => {
     const args = process.argv.slice(2);
@@ -36,6 +10,7 @@ const parseArg = () => {
         username: "mazavatar",
         style: "normal",
         algorithm: "sha256",
+        output: "",
     };
 
     for (let i = 0; i < argsLen; i++) {
@@ -78,6 +53,16 @@ const parseArg = () => {
                     parseArgs["algorithm"] = args[i + 1];
                 } else {
                     console.log("Algorithms not found");
+                    help();
+                    return {};
+                }
+
+                i++;
+            } else if (args[i] === "-o" || args[i] === "--output") {
+                if (i < argsLen - 1) {
+                    parseArgs["output"] = args[i + 1];
+                } else {
+                    console.log("File name not found");
                     help();
                     return {};
                 }

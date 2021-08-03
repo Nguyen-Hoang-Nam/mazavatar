@@ -13,13 +13,52 @@ $ npm install -g mazavatar
 ## Usage
 
 ```bash
-$ mazavatar --width 20 --height 20 usernam
+$ mazavatar -h
+
+Usage: mazavatar <Options> <Input>
+Options:
+  -h, --help              Show help
+  -v, --version           Show version
+  -o, --output            Create output file
+  -a, --algorithm         Change hash algorithm
+  -s, --style             Change maze style (normal, heavy, arc)
+  -W, --width             Set width of maze
+  -H, --height            Set height of maze
+
+Examples:
+  $ mazavatar --width 20 --height 20 example
+```
+
+```bash
+$ mazavatar --width 20 --height 20 --style arc --algorithm md5 username
+
+╭───┬───┬─────────┬───────────────────┬─╮
+├─╮ ╵ ╷ │ ╭─────╮ ╰───╮ ╭───────┬───╮ ╵ │
+│ ╰───┤ ╵ │ ╷  ─┴───╮ ╵ │  ───╮ ╵ ╷ ╰─  │
+│ ╷ ╷ ╰───┤ ╰─────╮ ├───┴───╮ ╰───┼───┬─┤
+│ │ ├───╮ ├───┬─  │ ╵ ╭─╮ ╭─┴───╮ ╵ ╷ │ │
+│ │ ╵ ╷ ╰─╯ ╷ ╵ ╭─┴───┤ │ ╵ ╷  ─┴───┤ ╵ │
+│ ╰─┬─┴─┬───┴───╯ ╭─╮ ╵ ╰─┬─┴─────╮ ├─  │
+├─╮ ╵ ╷ │ ╭─┬───┬─╯ ╰───╮ ╵ ╭───  │ ╵ ╭─┤
+│ ╰───┤ ╵ │ ╵ ╷ ╵ ╭─╮ ╭─┴───┤  ─┬─┴─┬─╯ │
+│  ─╮ ├───╯ ╭─┴───╯ │ ╵ ╭─  ╰─╮ ╵ ╷ │ ╷ │
+├─╮ │ ╵ ╭───╯  ─╮ ╷ ├───┤ ╭───┴───┤ ╵ │ │
+│ │ ╰─┬─┴─┬─────╯ │ ╵ ╷ │ ╵ ╭─╮ ╷ ╰───┤ │
+│ ╰─╮ ╵ ╷ │ ╭─┬───┴───┤ ╰───╯ │ ├───╮ │ │
+│  ─┴───┤ ╵ │ ╵ ╷ ╭───┴─┬───╮ │ ╵ ╷ ╰─╯ │
+│  ─╮  ─┴───┤  ─┤ ╵ ╷  ─╯ ╷ ╵ ├───┴─────┤
+├─╮ ╰─┬───  ╰─╮ ╰───┴─┬───┼───┼─────  ╷ │
+│ ├─  │ ╭─────┴─────  │ ╷ ╵ ╷ │ ╭───┬─╯ │
+│ ╵ ╭─┤ ╵ ╭───────────╯ ├───┤ ╵ │ ╷ ╵ ╭─┤
+│  ─╯ ╰───┤  ─────┬─┬───╯ ╭─┴─┬─╯ ├───╯ │
+├───────  ╰─────  │ ╵ ╷  ─╯ ╷ ╵  ─╯ ╭─  │
+╰─────────────────┴───┴─────┴───────┴───╯
 ```
 
 ## Todo
 
 - [ ] Implement Growing Tree algorithm
-- [ ] Output image of maze
+- [x] Output file
 - [ ] Move recursion to iteration
 - [x] Support change hash algorithm
 

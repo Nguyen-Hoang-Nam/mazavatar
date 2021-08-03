@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 
 import crypto from "crypto";
+import { writeFile } from "fs";
 import args from "./parseArgs.js";
-import { isEmpty, getBit, between } from "./utils.js";
+import { isEmpty, getBit, between, help } from "./utils.js";
 import { boxDrawing } from "./global.js";
 
 if (!isEmpty(args)) {
@@ -146,25 +147,24 @@ if (!isEmpty(args)) {
         }
 
         const drawStyle = boxDrawing[style];
+        let maze = "";
 
-        let firstLine = drawStyle["downRight"];
+        maze += drawStyle["downRight"];
         for (let i = 1; i < width * 2; i++) {
             if (drawGrid[0][i] === "|") {
-                firstLine += drawStyle["horizontalDown"];
+                maze += drawStyle["horizontalDown"];
             } else {
-                firstLine += drawStyle["horizontal"];
+                maze += drawStyle["horizontal"];
             }
         }
-        firstLine += drawStyle["downLeft"];
-        console.log(firstLine);
+        maze += drawStyle["downLeft"];
+        maze += "\n";
 
         for (let i = 0; i < height - 1; i++) {
-            let line2 = "";
-
             if (drawGrid[i][1] === "_") {
-                line2 += drawStyle["verticalRight"];
+                maze += drawStyle["verticalRight"];
             } else {
-                line2 += drawStyle["vertical"];
+                maze += drawStyle["vertical"];
             }
 
             for (let j = 1; j < width * 2; j++) {
@@ -172,77 +172,89 @@ if (!isEmpty(args)) {
                     if (drawGrid[i + 1][j] === "|") {
                         if (drawGrid[i][j - 1] === "_") {
                             if (drawGrid[i][j + 1] === "_") {
-                                line2 += drawStyle["verticalHorizontal"];
+                                maze += drawStyle["verticalHorizontal"];
                             } else {
-                                line2 += drawStyle["verticalLeft"];
+                                maze += drawStyle["verticalLeft"];
                             }
                         } else {
                             if (drawGrid[i][j + 1] === "_") {
-                                line2 += drawStyle["verticalRight"];
+                                maze += drawStyle["verticalRight"];
                             } else {
-                                line2 += drawStyle["vertical"];
+                                maze += drawStyle["vertical"];
                             }
                         }
                     } else {
                         if (drawGrid[i][j - 1] === "_") {
                             if (drawGrid[i][j + 1] === "_") {
-                                line2 += drawStyle["horizontalUp"];
+                                maze += drawStyle["horizontalUp"];
                             } else {
-                                line2 += drawStyle["upLeft"];
+                                maze += drawStyle["upLeft"];
                             }
                         } else {
                             if (drawGrid[i][j + 1] === "_") {
-                                line2 += drawStyle["upRight"];
+                                maze += drawStyle["upRight"];
                             } else {
-                                line2 += drawStyle["up"];
+                                maze += drawStyle["up"];
                             }
                         }
                     }
                 } else if (drawGrid[i][j] === "_") {
                     if (drawGrid[i + 1][j] === "|") {
-                        line2 += drawStyle["horizontalDown"];
+                        maze += drawStyle["horizontalDown"];
                     } else {
-                        line2 += drawStyle["horizontal"];
+                        maze += drawStyle["horizontal"];
                     }
                 } else {
                     if (drawGrid[i + 1][j] === "|") {
                         if (drawGrid[i][j - 1] === "_") {
                             if (drawGrid[i][j + 1] === "_") {
-                                line2 += drawStyle["horizontalDown"];
+                                maze += drawStyle["horizontalDown"];
                             } else {
-                                line2 += drawStyle["downLeft"];
+                                maze += drawStyle["downLeft"];
                             }
                         } else {
                             if (drawGrid[i][j + 1] === "_") {
-                                line2 += drawStyle["downRight"];
+                                maze += drawStyle["downRight"];
                             } else {
-                                line2 += drawStyle["down"];
+                                maze += drawStyle["down"];
                             }
                         }
                     } else {
-                        line2 += " ";
+                        maze += " ";
                     }
                 }
             }
 
             if (drawGrid[i][width * 2 - 1] === "_") {
-                line2 += drawStyle["verticalLeft"];
+                maze += drawStyle["verticalLeft"];
             } else {
-                line2 += drawStyle["vertical"];
+                maze += drawStyle["vertical"];
             }
-            console.log(line2);
+            maze += "\n";
         }
 
-        let lastLine = drawStyle["upRight"];
+        maze += drawStyle["upRight"];
         for (let i = 1; i < width * 2; i++) {
             if (drawGrid[height - 1][i] === "|") {
-                lastLine += drawStyle["horizontalUp"];
+                maze += drawStyle["horizontalUp"];
             } else {
-                lastLine += drawStyle["horizontal"];
+                maze += drawStyle["horizontal"];
             }
         }
-        lastLine += drawStyle["upLeft"];
-        console.log(lastLine);
+        maze += drawStyle["upLeft"];
+
+        if (args["output"] === "") {
+            console.log("\n" + maze);
+        } else {
+            writeFile(args["output"], maze, (err) => {
+                if (err) {
+                    console.log("Can not write file");
+                    return help();
+                }
+
+                console.log("Write file sucessful");
+            });
+        }
     };
 
     drawMaze(grid);
