@@ -11,6 +11,10 @@ const help = () => {
     output += "Options: \n";
     output += helpCommand("-h, --help", "Show help\n");
     output += helpCommand("-v, --version", "Show version\n");
+    output += helpCommand(
+        "-s, --style",
+        "Change maze style (normal, heavy, arc)\n"
+    );
     output += helpCommand("-W, --width", "Set width of maze\n");
     output += helpCommand("-H, --height", "Set height of maze\n");
 
@@ -24,12 +28,17 @@ const help = () => {
 const parseArg = () => {
     const args = process.argv.slice(2);
     const argsLen = args.length;
-    const parseArgs = { width: 5, height: 5, username: "mazavatar" };
+    const parseArgs = {
+        width: 5,
+        height: 5,
+        username: "mazavatar",
+        style: "normal",
+    };
 
     for (let i = 0; i < argsLen; i++) {
         if (args[i][0] === "-") {
             if (args[i] === "-W" || args[i] === "--width") {
-                if (isNumeric(args[i + 1])) {
+                if (i < argsLen - 1 && isNumeric(args[i + 1])) {
                     parseArgs["width"] = parseInt(args[i + 1]);
                 } else {
                     console.log("Width must be a positive number");
@@ -39,10 +48,23 @@ const parseArg = () => {
 
                 i++;
             } else if (args[i] === "-H" || args[i] === "--height") {
-                if (isNumeric(args[i + 1])) {
+                if (i < argsLen - 1 && isNumeric(args[i + 1])) {
                     parseArgs["height"] = parseInt(args[i + 1]);
                 } else {
                     console.log("Height must be a positive number");
+                    help();
+                    return {};
+                }
+
+                i++;
+            } else if (args[i] === "-s" || args[i] === "--style") {
+                if (
+                    i < argsLen - 1 &&
+                    ["normal", "heavy", "arc"].includes(args[i + 1])
+                ) {
+                    parseArgs["style"] = args[i + 1];
+                } else {
+                    console.log("Style not found");
                     help();
                     return {};
                 }

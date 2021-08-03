@@ -5,9 +5,60 @@ import args from "./parseArgs.js";
 import { isEmpty, getBit, between } from "./utils.js";
 
 if (!isEmpty(args)) {
+    const boxDrawing = {
+        normal: {
+            horizontal: "─",
+            vertical: "│",
+            downRight: "┌",
+            downLeft: "┐",
+            upRight: "└",
+            upLeft: "┘",
+            verticalRight: "├",
+            verticalLeft: "┤",
+            horizontalDown: "┬",
+            horizontalUp: "┴",
+            verticalHorizontal: "┼",
+            up: "╵",
+            down: "╷",
+        },
+
+        heavy: {
+            horizontal: "━",
+            vertical: "┃",
+            downRight: "┏",
+            downLeft: "┓",
+            upRight: "┗",
+            upLeft: "┛",
+            verticalRight: "┣",
+            verticalLeft: "┫",
+            horizontalDown: "┳",
+            horizontalUp: "┻",
+            verticalHorizontal: "╋",
+            up: "╹",
+            down: "╻",
+        },
+
+        arc: {
+            horizontal: "─",
+            vertical: "│",
+            downRight: "╭",
+            downLeft: "╮",
+            upRight: "╰",
+            upLeft: "╯",
+            verticalRight: "├",
+            verticalLeft: "┤",
+            horizontalDown: "┬",
+            horizontalUp: "┴",
+            verticalHorizontal: "┼",
+            up: "╵",
+            down: "╷",
+        },
+    };
+
     const width = args["width"];
     const height = args["height"];
     const username = args["username"];
+    const style = args["style"];
 
     // Hash username
     const hash = crypto.createHash("sha256").update(username).digest("hex");
@@ -119,54 +170,48 @@ if (!isEmpty(args)) {
 
         for (let i = 0; i < height; i++) {
             const row = ["|"];
-            // let str = "│";
 
             for (let j = 0; j < width; j++) {
                 if ((grid[i][j] & S) != 0) {
-                    // str += " ";
                     row.push(" ");
                 } else {
-                    // str += "_";
                     row.push("_");
                 }
 
                 if ((grid[i][j] & E) != 0) {
                     if (((grid[i][j] | grid[i][j + 1]) & S) != 0) {
-                        // str += " ";
                         row.push(" ");
                     } else {
-                        // str += "_";
                         row.push("_");
                     }
                 } else {
-                    // str += "│";
                     row.push("|");
                 }
             }
 
             drawGrid.push(row);
-
-            // console.log(str);
         }
 
-        let firstLine = "┌";
+        const drawStyle = boxDrawing[style];
+
+        let firstLine = drawStyle["downRight"];
         for (let i = 1; i < width * 2; i++) {
             if (drawGrid[0][i] === "|") {
-                firstLine += "┬";
+                firstLine += drawStyle["horizontalDown"];
             } else {
-                firstLine += "─";
+                firstLine += drawStyle["horizontal"];
             }
         }
-        firstLine += "┐";
+        firstLine += drawStyle["downLeft"];
         console.log(firstLine);
 
         for (let i = 0; i < height - 1; i++) {
             let line2 = "";
 
             if (drawGrid[i][1] === "_") {
-                line2 += "├";
+                line2 += drawStyle["verticalRight"];
             } else {
-                line2 += "│";
+                line2 += drawStyle["vertical"];
             }
 
             for (let j = 1; j < width * 2; j++) {
@@ -174,51 +219,51 @@ if (!isEmpty(args)) {
                     if (drawGrid[i + 1][j] === "|") {
                         if (drawGrid[i][j - 1] === "_") {
                             if (drawGrid[i][j + 1] === "_") {
-                                line2 += "┼";
+                                line2 += drawStyle["verticalHorizontal"];
                             } else {
-                                line2 += "┤";
+                                line2 += drawStyle["verticalLeft"];
                             }
                         } else {
                             if (drawGrid[i][j + 1] === "_") {
-                                line2 += "├";
+                                line2 += drawStyle["verticalRight"];
                             } else {
-                                line2 += "│";
+                                line2 += drawStyle["vertical"];
                             }
                         }
                     } else {
                         if (drawGrid[i][j - 1] === "_") {
                             if (drawGrid[i][j + 1] === "_") {
-                                line2 += "┴";
+                                line2 += drawStyle["horizontalUp"];
                             } else {
-                                line2 += "┘";
+                                line2 += drawStyle["upLeft"];
                             }
                         } else {
                             if (drawGrid[i][j + 1] === "_") {
-                                line2 += "└";
+                                line2 += drawStyle["upRight"];
                             } else {
-                                line2 += "╵";
+                                line2 += drawStyle["up"];
                             }
                         }
                     }
                 } else if (drawGrid[i][j] === "_") {
                     if (drawGrid[i + 1][j] === "|") {
-                        line2 += "┬";
+                        line2 += drawStyle["horizontalDown"];
                     } else {
-                        line2 += "─";
+                        line2 += drawStyle["horizontal"];
                     }
                 } else {
                     if (drawGrid[i + 1][j] === "|") {
                         if (drawGrid[i][j - 1] === "_") {
                             if (drawGrid[i][j + 1] === "_") {
-                                line2 += "┬";
+                                line2 += drawStyle["horizontalDown"];
                             } else {
-                                line2 += "┐";
+                                line2 += drawStyle["downLeft"];
                             }
                         } else {
                             if (drawGrid[i][j + 1] === "_") {
-                                line2 += "┌";
+                                line2 += drawStyle["downRight"];
                             } else {
-                                line2 += "╷";
+                                line2 += drawStyle["down"];
                             }
                         }
                     } else {
@@ -228,22 +273,22 @@ if (!isEmpty(args)) {
             }
 
             if (drawGrid[i][width * 2 - 1] === "_") {
-                line2 += "┤";
+                line2 += drawStyle["verticalLeft"];
             } else {
-                line2 += "│";
+                line2 += drawStyle["vertical"];
             }
             console.log(line2);
         }
 
-        let lastLine = "└";
+        let lastLine = drawStyle["upRight"];
         for (let i = 1; i < width * 2; i++) {
             if (drawGrid[height - 1][i] === "|") {
-                lastLine += "┴";
+                lastLine += drawStyle["horizontalUp"];
             } else {
-                lastLine += "─";
+                lastLine += drawStyle["horizontal"];
             }
         }
-        lastLine += "┘";
+        lastLine += drawStyle["upLeft"];
         console.log(lastLine);
     };
 
