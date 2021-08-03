@@ -13,8 +13,8 @@ if (!isEmpty(args)) {
 
     // Hash to int
     const hashArr = [];
-    for (let i = 0; i < hashArr.length; i++) {
-        hashArr[i] = parseInt(hashHexArr[i], 16);
+    for (let i = 0; i < hashHexArr.length; i++) {
+        hashArr.push(parseInt(hashHexArr[i], 16));
     }
 
     // Initial grid
