@@ -2,8 +2,14 @@
     "name": "mazavatar",
     "version": "1.0.0",
     "description": "Generate maze by name",
-    "main": "main.js",
-    "author": "Nguyen Hoang Nam",
+    "main": "bin/main.js",
+    "author": {
+        "name": "Nguyen Hoang Nam",
+        "email": "nguyenhoangnam.dev@gmail.com"
+    },
+    "bin": {
+        "mazavatar": "./bin/main.js"
+    },
     "license": "MIT",
     "type": "module"
 }

@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import crypto from "crypto";
 import args from "./parseArgs.js";
 import { isEmpty, getBit, between } from "./utils.js";
