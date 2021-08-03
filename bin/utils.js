@@ -28,6 +28,7 @@ const help = () => {
     output += helpCommand("-h, --help", "Show help\n");
     output += helpCommand("-v, --version", "Show version\n");
     output += helpCommand("-o, --output", "Create output file\n");
+    output += helpCommand("-m, --maze", "Change maze algorithm\n");
     output += helpCommand("-a, --algorithm", "Change hash algorithm\n");
     output += helpCommand(
         "-s, --style",

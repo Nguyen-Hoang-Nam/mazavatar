@@ -57,10 +57,13 @@ $ mazavatar --width 20 --height 20 --style arc --algorithm md5 username
 
 ## Todo
 
-- [ ] Implement Growing Tree algorithm
+- [x] Implement Growing Tree algorithm
 - [x] Output file
-- [ ] Move recursion to iteration
+- [x] Move recursion to iteration
 - [x] Support change hash algorithm
+- [ ] Implement Typescript
+- [ ] Implement Prim
+- [ ] Implement Kruskal
 
 ## Contributing
 

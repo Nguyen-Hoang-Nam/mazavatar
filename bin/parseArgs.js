@@ -1,5 +1,5 @@
 import { isNumeric, help } from "./utils.js";
-import { algorithms } from "./global.js";
+import { hashAlgorithms, mazeAlgorithm } from "./global.js";
 
 const parseArg = () => {
     const args = process.argv.slice(2);
@@ -11,6 +11,7 @@ const parseArg = () => {
         style: "normal",
         algorithm: "sha256",
         output: "",
+        maze: "growing-tree",
     };
 
     for (let i = 0; i < argsLen; i++) {
@@ -49,7 +50,7 @@ const parseArg = () => {
 
                 i++;
             } else if (args[i] === "-a" || args[i] === "--algorithm") {
-                if (i < argsLen - 1 && algorithms.includes(args[i + 1])) {
+                if (i < argsLen - 1 && hashAlgorithms.includes(args[i + 1])) {
                     parseArgs["algorithm"] = args[i + 1];
                 } else {
                     console.log("Algorithms not found");
@@ -63,6 +64,16 @@ const parseArg = () => {
                     parseArgs["output"] = args[i + 1];
                 } else {
                     console.log("File name not found");
+                    help();
+                    return {};
+                }
+
+                i++;
+            } else if (args[i] === "-m" || args[i] === "--maze") {
+                if (i < argsLen - 1 && mazeAlgorithm.includes(args[i + 1])) {
+                    parseArgs["maze"] = args[i + 1];
+                } else {
+                    console.log("Maze algorithm not found");
                     help();
                     return {};
                 }
