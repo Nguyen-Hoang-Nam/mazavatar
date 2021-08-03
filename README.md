@@ -20,6 +20,7 @@ Options:
   -h, --help              Show help
   -v, --version           Show version
   -o, --output            Create output file
+  -m, --maze              Change maze algorithm
   -a, --algorithm         Change hash algorithm
   -s, --style             Change maze style (normal, heavy, arc)
   -W, --width             Set width of maze
