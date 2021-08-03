@@ -1,7 +1,7 @@
 {
     "name": "mazavatar",
     "version": "1.0.0",
-    "description": "Generate maze by name",
+    "description": "Generate maze by username",
     "main": "bin/main.js",
     "author": {
         "name": "Nguyen Hoang Nam",
@@ -10,6 +10,19 @@
     "bin": {
         "mazavatar": "./bin/main.js"
     },
+    "homepage": "https://github.com/Nguyen-Hoang-Nam/mazavatar",
+    "bugs": "https://github.com/Nguyen-Hoang-Nam/mazavatar/issues",
+    "keywords": [
+        "cli-app",
+        "maze",
+        "hash",
+        "avatar",
+        "cli"
+    ],
     "license": "MIT",
-    "type": "module"
+    "type": "module",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Nguyen-Hoang-Nam/mazavatar.git"
+    }
 }
