@@ -1,0 +1,9 @@
+{
+    "name": "mazavatar",
+    "version": "1.0.0",
+    "description": "Generate maze by name",
+    "main": "main.js",
+    "author": "Nguyen Hoang Nam",
+    "license": "MIT",
+    "type": "module"
+}
